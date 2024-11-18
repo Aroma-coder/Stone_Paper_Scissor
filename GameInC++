@@ -1,0 +1,73 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+// A function that returns the computer's move
+char getComputerMove() {
+  // Generate a random number between 1 and 3
+  srand(time(0));
+  int num = rand() % 3 + 1;
+  // Return the corresponding move
+  if (num == 1) return 'r';
+  if (num == 2) return 'p';
+  return 's';
+}
+
+// A function that returns the result of the game
+// 1 for win, 0 for tie, -1 for loss
+int getResults(char playerMove, char computerMove) {
+  // Compare the moves and apply the game rules
+  if (playerMove == computerMove) return 0;
+  if (playerMove == 'r' && computerMove == 'p') return -1;
+  if (playerMove == 'r' && computerMove == 's') return 1;
+  if (playerMove == 'p' && computerMove == 'r') return 1;
+  if (playerMove == 'p' && computerMove == 's') return -1;
+  if (playerMove == 's' && computerMove == 'r') return -1;
+  if (playerMove == 's' && computerMove == 'p') return 1;
+}
+
+// A function that displays the selected move
+void showSelectedOption(char option) {
+  if (option == 'r') cout << "Rock" << endl;
+  if (option == 'p') cout << "Paper" << endl;
+  if (option == 's') cout << "Scissors" << endl;
+}
+
+// The main function
+int main() {
+  // Declare the variables
+  char playerMove, computerMove;
+  int result;
+  // Print the game instructions
+  cout << "Welcome to the rock paper scissors game!" << endl;
+  cout << "Enter r for rock, p for paper, or s for scissors" << endl;
+  // Get the player's move
+  cin >> playerMove;
+  // Validate the input
+  while (playerMove != 'r' && playerMove != 'p' && playerMove != 's') {
+    cout << "Invalid input. Please enter r, p, or s" << endl;
+    cin >> playerMove;
+  }
+  // Get the computer's move
+  computerMove = getComputerMove();
+  // Display the moves
+  cout << "You chose: ";
+  showSelectedOption(playerMove);
+  cout << "Computer chose: ";
+  showSelectedOption(computerMove);
+  // Get the result
+  result = getResults(playerMove, computerMove);
+  // Display the result
+  if (result == 0) {
+    cout << "It's a tie!" << endl;
+  }
+  else if (result == 1) {
+    cout << "You win!" << endl;
+  }
+  else {
+    cout << "You lose!" << endl;
+  }
+  // End the program
+  return 0;
+}
